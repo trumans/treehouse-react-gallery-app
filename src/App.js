@@ -19,11 +19,11 @@ class App extends Component {
     const searchUrl = `${base_path}?${url_params}`;
     console.log('search URL', searchUrl);
 
-    this.setState( {isLoading: true, search: search} );
+    this.setState( { isLoading: true, search: search } );
     fetch(searchUrl)
       .then(response => response.json())
       .then(data => this.response = data)
-      .then(() => this.setState( { isLoading: false} ));
+      .then(() => this.setState( { isLoading: false } ));
   }
 
   parseResponse() {
@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   renderGallery() {
-    const items = this.parseResponse(this.response);
+    const items = this.parseResponse();
     const search = this.state.search;
     if (this.state.isLoading) {
         return <Loading />
@@ -60,10 +60,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('apiKey', apiKey);
-    console.log('state', this.state);
-    this.fetchData();
-    const items = this.parseData(this.state.data);
     return (
       <div className="container">
         <Header onSearch={this.handleSearch} />

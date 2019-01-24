@@ -1,11 +1,11 @@
 import React from 'react';
 
-const NoResults = () => {
+const NoResults = ( {topic} ) => {
   return (
-    <li className="not-found">
-      <h3>No Results Found</h3>
-      <p>You search did not return any results. Please try again.</p>
-    </li>
+    <div className="not-found">
+      <h2>No Results Found</h2>
+      <p>Your search for "{topic}" did not return any results. Please try again.</p>
+    </div>
   );
 }
 

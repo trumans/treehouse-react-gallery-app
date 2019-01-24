@@ -3,28 +3,32 @@ import './App.css';
 
 import Header from "./components/Header";
 import GalleryContainer from "./components/GalleryContainer.js";
+import Loading from "./components/Loading";
 import NoResults from "./components/NoResults";
 import apiKey from "./config";
 
 class App extends Component {
 
-  state = { search: 'bird' };
+  state = { isLoading: false };
+  response;
 
-  fetchData = () => {
+  fetchData = (search) => {
     const base_path = "https://api.flickr.com/services/rest/";
     const url_params =
-      `method=flickr.photos.search&api_key=${apiKey}&tags=${this.state.search}&per_page=24&format=json&nojsoncallback=1`;
+      `method=flickr.photos.search&api_key=${apiKey}&tags=${search}&per_page=24&format=json&nojsoncallback=1`;
     const searchUrl = `${base_path}?${url_params}`;
     console.log('search URL', searchUrl);
 
+    this.setState( {isLoading: true, search: search} );
     fetch(searchUrl)
       .then(response => response.json())
-      .then(data => this.setState( { data: data } ));
+      .then(data => this.response = data)
+      .then(() => this.setState( { isLoading: false} ));
   }
 
-  parseData = (data) => {
-    if (data === undefined) { return '' }
-    const items = data.photos.photo.map( (item) => {
+  parseResponse() {
+    if (this.response === undefined) { return '' }
+    const items = this.response.photos.photo.map( (item) => {
       const src = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
       console.log('src', src);
       return {
@@ -34,23 +38,35 @@ class App extends Component {
     return items;
   }
 
-  handleNewSearch = (newSearch) => {
-    console.log('new search submitted for', newSearch);
-    this.setState({search: newSearch});
-
+  handleSearch = (searchWord) => {
+    console.log('search submitted for', searchWord);
+    this.fetchData(searchWord);
   };
 
+  componentDidMount() {
+      this.handleSearch("octopus");
+  }
+
+  renderGallery() {
+    const items = this.parseResponse(this.response);
+    const search = this.state.search;
+    if (this.state.isLoading) {
+        return <Loading />
+      } else {
+        return (items.length)
+          ? <GalleryContainer items={items} topic={search}/>
+          : <NoResults topic={search} />
+      }
+  }
+
   render() {
-    console.log('apiKey', apiKey);
-    console.log('state', this.state);
-    this.fetchData();
-    const items = this.parseData(this.state.data);
     return (
       <div className="container">
-        <Header onSearch={this.handleNewSearch} />
-        { (items.length) ? <GalleryContainer items={items}/> : <NoResults /> }
+        <Header onSearch={this.handleSearch} />
+        { this.renderGallery() }
       </div>
-    )}
+    )
+  }
 }
 
 export default App;

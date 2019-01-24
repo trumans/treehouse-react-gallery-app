@@ -3,6 +3,19 @@
 
 Add info to explain what your projects is and anything your user or fellow developers might need to know to use the project, like the format of your config file and where in the directory it should be stored
 
+404-message
+
+URL reflects search 
+
+# Stuff Added #
+
+Gallery header and "no results" page include the search term.
+
+A Loading message is displayed between the time a search is submitted and results are displayed.
+
+No results page when search returns nothing.
+
+
 # To Install #
 
 1. Download the project and install dependencies.

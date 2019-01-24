@@ -3,6 +3,7 @@
 
 Add info to explain what your projects is and anything your user or fellow developers might need to know to use the project, like the format of your config file and where in the directory it should be stored
 
+<<<<<<< HEAD
 404-message
 
 URL reflects search 
@@ -18,6 +19,10 @@ No results page when search returns nothing.
 
 # To Install #
 
+=======
+# To Install #
+
+>>>>>>> a3628cb6e5e011010e6339e79bd70ab6f1ad30d1
 1. Download the project and install dependencies.
 2. In the src folder find the file config-template.js and open in an editor.
 3. replace "insert-your-flickr-api-key-here" with your Flickr API key.

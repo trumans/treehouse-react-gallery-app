@@ -60,6 +60,10 @@ class App extends Component {
   }
 
   render() {
+    console.log('apiKey', apiKey);
+    console.log('state', this.state);
+    this.fetchData();
+    const items = this.parseData(this.state.data);
     return (
       <div className="container">
         <Header onSearch={this.handleSearch} />

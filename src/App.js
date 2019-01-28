@@ -9,7 +9,7 @@ import apiKey from "./config";
 
 class App extends Component {
 
-  state = { isLoading: false };
+  state = { isLoading: false, search: '' };
   defaultSearch = 'octopus';
 
   fetchData = (search) => {
@@ -19,11 +19,11 @@ class App extends Component {
     const searchUrl = `${base_path}?${url_params}`;
     console.log('search URL', searchUrl);
 
-    this.setState( { isLoading: true, search: search } );
+    this.setState( { isLoading: true  } );
     fetch(searchUrl)
       .then(response => response.json())
       .then(data => this.parseResponse(data))
-      .then(items => this.setState( { items: items, isLoading: false } ));
+      .then(items => this.setState( { items: items, search: search, isLoading: false } ));
   }
 
   parseResponse(data) {
@@ -55,7 +55,7 @@ class App extends Component {
           <Header onSearch={this.handleSearch} />
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/search/${this.defaultSearch}`} /> } />
-            <Route path="/search" render={ () => <GalleryContainer state={this.state} handleSearch={this.handleSearch}/> } />
+            <Route path="/search/:topic" render={ () => <GalleryContainer state={this.state} handleSearch={this.handleSearch}/> } />
             <Route component={PageNotFound} />
           </Switch>
         </div>

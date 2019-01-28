@@ -6,9 +6,9 @@ class Nav extends Component {
     return (
       <nav className="main-nav">
         <ul>
-          <li><NavLink to='/search/octopus' onClick={() => {this.props.onSearch("octopus")}}>Octopuses</NavLink></li>
-          <li><NavLink to='/search/elephant' onClick={() => {this.props.onSearch("elephant")}}>Elephants</NavLink></li>
-          <li><NavLink to='/search/penguin' onClick={() => {this.props.onSearch("penguin")}}>Penguins</NavLink></li>
+          <li><NavLink to='/search/octopus' onClick={() => {this.props.onSearch("octopus")}}>Octopus</NavLink></li>
+          <li><NavLink to='/search/elephant' onClick={() => {this.props.onSearch("elephant")}}>Elephant</NavLink></li>
+          <li><NavLink to='/search/penguin' onClick={() => {this.props.onSearch("penguin")}}>Penguin</NavLink></li>
         </ul>
       </nav>
     )}

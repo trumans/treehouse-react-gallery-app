@@ -7,6 +7,7 @@ import Nav from "./Nav";
 const Header = ( {onSearch} ) => {
   return (
     <div>
+      <h1>Flickr Photos for a Topic</h1>
       <Search onSearch={onSearch} />
       <Nav onSearch={onSearch} />
     </div>

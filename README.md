@@ -3,30 +3,29 @@
 
 Add info to explain what your projects is and anything your user or fellow developers might need to know to use the project, like the format of your config file and where in the directory it should be stored
 
-Handle browser back button and refresh pages accordingly.
-
-Handle a manually entered URL in browser. Or, refresh browser with /search/topic URL.
-
-Handle url /search without a topic. Should result be a default search or a page not found?
-
 Research test script in slack.
 
 Test:
 - first search is link
 - first search is form submit
 - browser back button
+- manually enter a url that is /search/<topic>
 - manually enter a url that's not /search/...
 
 
-# Stuff Added #
+# Features Added #
 
 The search term is included in the gallery header and No Results page.
 
+Handles browser back button and refreshes page accordingly.
+
+Handles a manually entered URL in browser with the path /search/<topic>
+
 A Loading message is displayed between submitting a search and displaying the results.
 
-A No Results page is displayed when search returns nothing.
+A "No Results" page is displayed when search returns nothing.
 
-A "Page Not Found" page is displayed if URL path does not begin with /search
+A "Page Not Found" page is displayed if URL path is not /search/<topic> or only /search
 
 
 # To Install #

@@ -8,7 +8,6 @@ class Search extends Component {
     event.preventDefault();
     this.props.onSearch( this.search.value );
     const path = `/search/${this.search.value}`;
-    console.log('props', this.props);
     this.props.history.push(path);
     event.currentTarget.reset();
   }

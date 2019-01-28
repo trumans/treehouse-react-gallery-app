@@ -17,7 +17,6 @@ class App extends Component {
     const url_params =
       `method=flickr.photos.search&api_key=${apiKey}&tags=${search}&per_page=24&format=json&nojsoncallback=1`;
     const searchUrl = `${base_path}?${url_params}`;
-    console.log('search URL', searchUrl);
 
     this.setState( { isLoading: true  } );
     fetch(searchUrl)
@@ -30,7 +29,7 @@ class App extends Component {
     if (data === undefined) { return '' }
     const items = data.photos.photo.map( (item) => {
       const src = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
-      console.log('src', src);
+
       return {
         id: item.id,
         src: src}
@@ -39,7 +38,6 @@ class App extends Component {
   }
 
   handleSearch = (searchWord) => {
-    console.log('search submitted for', searchWord);
     this.fetchData(searchWord);
   };
 
@@ -48,7 +46,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('in App render. state', this.state);
     return (
       <BrowserRouter>
         <div className="container">

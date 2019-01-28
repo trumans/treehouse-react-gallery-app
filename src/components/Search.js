@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router';
+
 class Search extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.onSearch( this.search.value );
+    const path = `/search/${this.search.value}`;
+    console.log('props', this.props);
+    this.props.history.push(path);
     event.currentTarget.reset();
   }
 
@@ -25,4 +30,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default withRouter(Search);

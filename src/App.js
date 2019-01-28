@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 
 import Header from "./components/Header";
 import GalleryContainer from "./components/GalleryContainer.js";
-import Loading from "./components/Loading";
-import NoResults from "./components/NoResults";
+import PageNotFound from "./components/PageNotFound";
 import apiKey from "./config";
 
 class App extends Component {
 
   state = { isLoading: false };
-  response;
+  defaultSearch = 'octopus';
 
   fetchData = (search) => {
     const base_path = "https://api.flickr.com/services/rest/";
@@ -22,13 +22,13 @@ class App extends Component {
     this.setState( { isLoading: true, search: search } );
     fetch(searchUrl)
       .then(response => response.json())
-      .then(data => this.response = data)
-      .then(() => this.setState( { isLoading: false } ));
+      .then(data => this.parseResponse(data))
+      .then(items => this.setState( { items: items, isLoading: false } ));
   }
 
-  parseResponse() {
-    if (this.response === undefined) { return '' }
-    const items = this.response.photos.photo.map( (item) => {
+  parseResponse(data) {
+    if (data === undefined) { return '' }
+    const items = data.photos.photo.map( (item) => {
       const src = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
       console.log('src', src);
       return {
@@ -44,27 +44,22 @@ class App extends Component {
   };
 
   componentDidMount() {
-      this.handleSearch("octopus");
-  }
-
-  renderGallery() {
-    const items = this.parseResponse();
-    const search = this.state.search;
-    if (this.state.isLoading) {
-        return <Loading />
-      } else {
-        return (items.length)
-          ? <GalleryContainer items={items} topic={search}/>
-          : <NoResults topic={search} />
-      }
+      this.handleSearch(this.defaultSearch);
   }
 
   render() {
+    console.log('in App render. state', this.state);
     return (
-      <div className="container">
-        <Header onSearch={this.handleSearch} />
-        { this.renderGallery() }
-      </div>
+      <BrowserRouter>
+        <div className="container">
+          <Header onSearch={this.handleSearch} />
+          <Switch>
+            <Route exact path="/" render={ () => <Redirect to={`/search/${this.defaultSearch}`} /> } />
+            <Route path="/search" render={ () => <GalleryContainer state={this.state} handleSearch={this.handleSearch}/> } />
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     )
   }
 }

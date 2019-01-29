@@ -11,7 +11,6 @@ class GalleryContainer extends Component {
     let body;
     const { isLoading, search, items } = this.props.state;
     const urlTopic = this.props.match.params.topic;
-
     // When url is different than last search, either display Loading message or start new search
     if ( urlTopic !== search ) {
       if (isLoading) {
@@ -28,7 +27,7 @@ class GalleryContainer extends Component {
           <div>
             <h2>Results for {search}</h2>
             <ul>
-              { items.map( (item) => <GalleryItem src={item.src} id={item.id} /> ) }
+              { items.map( (item) => <GalleryItem src={item.src} key={item.id} /> ) }
               </ul>
           </div>
         )

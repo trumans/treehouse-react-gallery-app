@@ -18,7 +18,7 @@ class App extends Component {
       `method=flickr.photos.search&api_key=${apiKey}&tags=${search}&per_page=24&format=json&nojsoncallback=1`;
     const searchUrl = `${base_path}?${url_params}`;
 
-    this.setState( { isLoading: true  } );
+    this.setState( { isLoading: true } );
     fetch(searchUrl)
       .then(response => response.json())
       .then(data => this.parseResponse(data))
@@ -41,10 +41,6 @@ class App extends Component {
     this.fetchData(searchWord);
   };
 
-  componentDidMount() {
-      this.handleSearch(this.defaultSearch);
-  }
-
   render() {
     return (
       <BrowserRouter>
@@ -52,7 +48,7 @@ class App extends Component {
           <Header onSearch={this.handleSearch} />
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/search/${this.defaultSearch}`} /> } />
-            <Route path="/search/:topic" render={ () => <GalleryContainer state={this.state} handleSearch={this.handleSearch}/> } />
+            <Route path="/search/:topic" render={ () => <GalleryContainer state={this.state} handleSearch={this.handleSearch} /> } />
             <Route component={PageNotFound} />
           </Switch>
         </div>

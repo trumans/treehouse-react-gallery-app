@@ -6,7 +6,7 @@ import Nav from "./Nav";
 const Header = () => {
   return (
     <div>
-      <h1>Flickr Photos for a Topic</h1>
+      <h1>Flickr Photo Search</h1>
       <Search />
       <Nav />
     </div>

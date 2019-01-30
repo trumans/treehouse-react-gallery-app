@@ -26,29 +26,22 @@ class App extends Component {
   }
 
   parseResponse(data) {
-    if (data === undefined) { return '' }
-    const items = data.photos.photo.map( (item) => {
+    return data.photos.photo.map( (item) => {
       const src = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
-
       return {
         id: item.id,
         src: src}
       })
-    return items;
   }
-
-  handleSearch = (searchWord) => {
-    this.fetchData(searchWord);
-  };
 
   render() {
     return (
       <BrowserRouter>
         <div className="container">
-          <Header onSearch={this.handleSearch} />
+          <Header />
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/search/${this.defaultSearch}`} /> } />
-            <Route path="/search/:topic" render={ () => <GalleryContainer state={this.state} handleSearch={this.handleSearch} /> } />
+            <Route path="/search/:topic" render={ () => <GalleryContainer state={this.state} fetchData={this.fetchData} /> } />
             <Route component={PageNotFound} />
           </Switch>
         </div>

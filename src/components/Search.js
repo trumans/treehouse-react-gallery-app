@@ -6,8 +6,7 @@ class Search extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const path = `/search/${this.search.value}`;
-    this.props.history.push(path);
+    this.props.history.push(`/search/${this.search.value}`);
     event.currentTarget.reset();
   }
 

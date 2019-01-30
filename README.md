@@ -37,7 +37,7 @@ The app also has the following features
 
 **GalleryContainer component**: The component submits a new search when the current URL's topic is different than the previous search. It also renders the momentary Loading message and the photos returned by the API call. The photos are displayed as an array of GalleryItems components.
 
-*There is a know console warning message that begins "Warning: Cannot update during an existing state transition" which appears when a URL is entered in the browser. This does not affect the page functionality.*
+*There is a known console warning message that begins "Warning: Cannot update during an existing state transition" which appears when a URL is entered in the browser. This does not affect the app functionality.*
 
 **GalleryItem component**: Displays a single photo.
 

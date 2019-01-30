@@ -5,14 +5,14 @@ The app uses the React framework to retrieve 24 images from the Flickr public ph
 - "npm start" launches the app with the URL "localhost:3000", which automatically redirects to a search for "octopus".
 - The app has a search form to submit a user-defined search.
 - The app has three buttons to submit pre-defined searches.
-- A search may be submitted with a URL of the form "localhost:3000/search/<topic>" where <topic> is the search term.
-- The browser's Back button will redisplay previous searches.
+- A search may be submitted with a URL of the form "localhost:3000/search/_topic_" where _topic_ is the search term.
+- The browser's Back button redisplays previous searches.
 
-# Exceeds Requirements features #
+# Exceeds Requirements Features #
 The app also has the following features
 - A Loading message appears briefly between the search submission and the results display.
 - A No Results message is displayed if the search returns nothing.
-- A URL path that is not of the form /search/<topic> returns a Page Does Not Exist message.
+- A URL path that is not of the form /search/_topic_ returns a Page Does Not Exist message.
 
 # To Install #
 1. Download the project and install dependencies with npm.
@@ -23,31 +23,31 @@ The app also has the following features
 
 # Code Structure #
 
-**App component** The primary component that drives the application.
-- Defines the functions that fetch data from the Flickr photo search API, parses the response, and saves it in the state data.
+**App component**: The primary component that drives the application.
+- Defines the functions that fetch data from the Flickr photo search API, parses the response, and saves the photo URLs in the state data.
 - Defines app routes
   - The root path which is redirected to the default search,
-  - The /search/<topic> route which renders the GalleryContainer
+  - The /search/_topic_ route which renders the GalleryContainer
   - Any other routes are directed to Page Not Found.
-- Defines the defaultSearch variable which is the default search for the root path. Currently it is set to "octopus", which is also the first pre-defined search. It may be changed to another value independent of the pre-defined search buttons.
-- Defines state values
-  - *isLoading*, boolean true or false. True indicates the Flickr search API is submitted and the app is waiting for a response. It is reset to false after the response is parsed.
+- Defines the defaultSearch variable which is the default search for the root path. Currently it is set to "octopus", which is also the first pre-defined search. It may be another value independent of the search buttons.
+- Sets state values
+  - *isLoading*, a boolean. True indicates the Flickr search API is submitted and the app is waiting for a response. It is reset to false after the response is parsed.
   - *search*, a string. The search term and the value for the API tag parameter that resulted in the current gallery display. When the app is launched its initial value is the empty string.
-  - *items*, an array of objects containing a URL and id. The response of the last search that was parsed into objects containing the URL and Flickr id for each photo. If the response returned no results it is an empty array.   
+  - *items*, an array of objects. The objects are the URL and Flickr id for each photo in the last search response. If the response returned no results it is an empty array.
 
-**GalleryContainer component** The component submits a new search when the current URL's topic is different than the previous search. It also renders the momentary Loading message and the photos returned by the API call. The photos are displayed as an array of GalleryItems components.
+**GalleryContainer component**: The component submits a new search when the current URL's topic is different than the previous search. It also renders the momentary Loading message and the photos returned by the API call. The photos are displayed as an array of GalleryItems components.
 
 *There is a know console warning message that begins "Warning: Cannot update during an existing state transition" which appears when a URL is entered in the browser. This does not affect the page functionality.*
 
-**GalleryItem component** Displays a single photo.
+**GalleryItem component**: Displays a single photo.
 
-**Header component** Renders app title, search form and search buttons. The component is present above the gallery and the message pages mentioned below.
+**Header component**: Renders app title, search form and search buttons. The component is present above the gallery and the message pages mentioned below.
 
-**Search component** The input form for a user-defined search. It changes the page URL to include the user input by using React's history.push(). It does not initiate the search since that is handled by the GalleryContainer component.
+**Search component**: The input form for a user-defined search. It changes the page URL to include the user input by using React's history.push(). It does not initiate the search since that is handled by the GalleryContainer component.
 
-**Nav component** Defines three pre-defined searches using NavLink components that define search URL routes. The buttons do not initiate a search since that is handled by the GalleryContainer component.
+**Nav component**: Defines three pre-defined searches using NavLink components that reference search URLs. The buttons do not initiate a search since that is handled by the GalleryContainer component.
 
-**Loading, NoResults, PageNotFound components** Simple message pages for when a search is in process, when no results are returned, and when the URL does not match the expected format, respectively.
+**Loading, NoResults, PageNotFound components**: Simple message pages for when a search is in process, when no results are returned, and when the URL does not match the expected format, respectively.
 
 # Scripts and Notes Generated by Create React App #
 
